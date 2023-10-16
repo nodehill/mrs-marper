@@ -14,9 +14,13 @@
  */
 
 import { readdirSync } from 'fs';
-import { dirname } from 'path';
+import { dirname, join as pathJoin } from 'path';
 import { fileURLToPath } from 'url';
+import { argv } from 'node:process';
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const pathToMake = pathJoin(__dirname, '../project/' + argv[2]);
+
+
 
 // import all scripts in this folder and start _make
 (async () => {
@@ -25,6 +29,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
     file !== '_index.js' && file.slice(-3) === '.js' &&
       Object.assign(globalThis, await import('./' + file));
   }
-  process.chdir('../project/test');
+  process.chdir(pathToMake);
   _make();
 })();
