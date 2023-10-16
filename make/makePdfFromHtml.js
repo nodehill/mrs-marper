@@ -7,7 +7,7 @@ import { argv } from 'node:process';
 export async function makePdfFromHtml(r, preWarmedPromise) {
   let { makePDF, makeJPGs, makePPTX: mPPTX, keepJPGs } = settings;
   let { browser, page } = await preWarmedPromise;
-  let url = import.meta.url.split('/make/')[0] + '/project/' + argv[2] +'/dist/index.html';
+  let url = import.meta.url.split('/make/')[0] + '/project/' + argv[2] + '/' + argv[3] +'/dist/index.html';
   await page.goto(url);
   let { deviceScaleFactor, jpgScreenshotQuality: quality, pdfCropPercent } = settings;
   // get the dimensions of a section/page in mm

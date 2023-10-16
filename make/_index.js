@@ -18,7 +18,7 @@ import { dirname, join as pathJoin } from 'path';
 import { fileURLToPath } from 'url';
 import { argv } from 'node:process';
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const pathToMake = pathJoin(__dirname, '../project/' + argv[2]);
+const makePath = pathJoin(__dirname, '../project/' + argv[2] + '/' + argv[3]);
 
 
 
@@ -29,6 +29,6 @@ const pathToMake = pathJoin(__dirname, '../project/' + argv[2]);
     file !== '_index.js' && file.slice(-3) === '.js' &&
       Object.assign(globalThis, await import('./' + file));
   }
-  process.chdir(pathToMake);
+  process.chdir(makePath);
   _make();
 })();
