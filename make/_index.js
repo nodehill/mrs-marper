@@ -25,6 +25,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
     file !== '_index.js' && file.slice(-3) === '.js' &&
       Object.assign(globalThis, await import('./' + file));
   }
-  process.chdir('../');
+  process.chdir('../project/test');
   _make();
 })();
