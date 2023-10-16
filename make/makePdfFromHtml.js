@@ -2,11 +2,12 @@
  * - Uses Puppeteer to create a PDF and JPG:s
  * - Gathers link position info for PPTX/PowerPoint creation
  */
+import { argv } from 'node:process';
 
 export async function makePdfFromHtml(r, preWarmedPromise) {
   let { makePDF, makeJPGs, makePPTX: mPPTX, keepJPGs } = settings;
   let { browser, page } = await preWarmedPromise;
-  let url = import.meta.url.split('/make/')[0] + '/project/test/dist/index.html';
+  let url = import.meta.url.split('/make/')[0] + '/project/' + argv[2] +'/dist/index.html';
   await page.goto(url);
   let { deviceScaleFactor, jpgScreenshotQuality: quality, pdfCropPercent } = settings;
   // get the dimensions of a section/page in mm
