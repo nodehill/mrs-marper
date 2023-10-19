@@ -8,8 +8,7 @@
     "make": "node make/_index.js",
     "make-doc": "node auto-document/make-documentation.js",
     "test-cc": "node auto-document/cc-quick-report.js",
-    "backend": "nodemon --watch backend ./backend/index.js",
-    "test": "node ./tests/cognitive-complexity.js"
+    "backend": "nodemon --watch backend ./backend/index.js"
   },
   "repository": {
     "type": "git",

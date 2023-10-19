@@ -14,9 +14,9 @@
  */
 
 import { readdirSync } from 'fs';
+import { argv } from 'node:process';
 import { dirname, join as pathJoin } from 'path';
 import { fileURLToPath } from 'url';
-import { argv } from 'node:process';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const makePath = pathJoin(__dirname, '../project/' + argv[2] + '/' + argv[3]);
 

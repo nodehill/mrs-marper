@@ -5,9 +5,10 @@ import putCtrl from './put.js';
 import deleteCtrl from './delete.js';
 import loginCtrls from './login.js';
 import aclMiddleware from './aclMiddleware.js';
+import compileProject from './compileProject.js';
 
 export {
   postCtrl, getAllCtrl, getCtrl,
   putCtrl, deleteCtrl, loginCtrls,
-  aclMiddleware
+  aclMiddleware, compileProject
 };
