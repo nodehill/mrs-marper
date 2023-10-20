@@ -8,7 +8,10 @@
     "make": "node make/_index.js",
     "make-doc": "node auto-document/make-documentation.js",
     "test-cc": "node auto-document/cc-quick-report.js",
-    "backend": "nodemon --watch backend ./backend/index.js"
+    "backend": "nodemon --watch backend ./backend/index.js",
+    "dev": "cd frontend/ && vite",
+    "build": "cd frontend/ && vite build",
+    "preview": "vite preview"
   },
   "repository": {
     "type": "git",
@@ -33,7 +36,8 @@
     "express": "^4.18.2",
     "express-mysql-session": "^3.0.0",
     "express-session": "^1.17.3",
-    "mysql2": "^3.6.1"
+    "mysql2": "^3.6.1",
+    "vite": "^4.4.5"
   },
   "devDependencies": {
     "cognitive-complexity-ts": "^0.6.1",
