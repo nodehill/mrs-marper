@@ -1,4 +1,14 @@
-export default function handleLogin() {
+
+export default loginRouter.post('/', async (req, res) => {
+  let username = req.body.username;
+  let password = req.body.password;
+  res.send(`Username: ${username} Password: ${password}`);
+
+});
+
+
+
+/*export default function handleLogin() {
   const login = document.getElementById('loginForm');
 
   form.addEventListener('submit', onLoginSubmit);
@@ -33,4 +43,4 @@ export default function handleLogin() {
     }
   }
   postLogin().then(checkLogin);
-}
+} */
