@@ -1,46 +1,22 @@
 
-export default loginRouter.post('/', async (req, res) => {
-  let username = req.body.username;
-  let password = req.body.password;
-  res.send(`Username: ${username} Password: ${password}`);
+const loginForm = document.querySelector("loginForm");
+loginForm.addEventListener("submit",  onFormSubmit);
 
-});
-
-
-
-/*export default function handleLogin() {
-  const login = document.getElementById('loginForm');
-
-  form.addEventListener('submit', onLoginSubmit);
-
-  function onLoginSubmit(event) {
-    event.preventDefault();
-    const data = new FormData(event.target);
-    const dataObject = Object.fromEntries(data.entries());
-    console.log(dataObject);
-  }
-
-  async function postLogin() {
-  fetch('/api/login', {
-    method: 'POST',
+const onFormSubmit = async (event) => {
+  event.preventDefault();
+  const formData = new FormData(loginForm);
+  const data = Object.fromEntries(formData);
+  const response = await fetch("/api/login", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(dataObject),
+    body: JSON.stringify(data),
   });
+  const result = await response.json();
+  if (result.error) {
+    alert(result.error);
+  } else {
+    alert("You are now logged in!");
   }
-
-  async function checkLogin() {
-    if (response.ok) {
-      const { token } = await response.json();
-      localStorage.setItem('token', token);
-      console.log("logged in");
-    } else {
-      const { error } = await response.json();
-      alert(error + "wrong username or password");
-      console.log("error, wrong username or password");
-      console.log(error);
-    }
-  }
-  postLogin().then(checkLogin);
-} */
+}
