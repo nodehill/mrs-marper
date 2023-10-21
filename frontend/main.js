@@ -9,7 +9,7 @@ const isEmailValid = (email) => {
 };
 
 const isPasswordValid = (password) => {
-  return /^((?=.*[\d])(?=.*[a-z])(?=.*[A-Z])|(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w\d\s])|(?=.*[\d])(?=.*[A-Z])(?=.*[^\w\d\s])|(?=.*[\d])(?=.*[a-z])(?=.*[^\w\d\s])).{7,30}$/gm.test(
+  return /^((?=.*[a-z])|(?=.*[a-z])(?=.*[^\w\d\s])|(?=.*[^\w\d\s])|(?=.*[a-z])(?=.*[^\w\d\s])).{7,30}$/gm.test(
     password
   );
 };
@@ -77,9 +77,38 @@ document.addEventListener('DOMContentLoaded', () => {
       body: JSON.stringify(submittedValue),
     });
 
+    if (postLogin.status === 200) {
+      window.location.href = '/dashboard';
+    } else {
+      alert('Something went wrong');
+    }
+
     // Check console to see the result
     console.log(submittedValue);
   });
+
+  const logout = document.querySelector('#logout');
+  logout.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const postLogout = await fetch('/api/login', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (postLogout.status === 200) {
+      window.location.href = '/';
+    } else {
+      alert('Something went wrong');
+    }
+  });
+  
+  // add to dashboard page - list of users projects
+  // add register form
+  // add register button
+  // add register route
+  // add register controller
 });
 
 
