@@ -1,9 +1,6 @@
-
-// Handle the form submission event, prevent default, and compose the request body
-
 const [form] = document.forms;
 const [emailFeedback, passwordFeedback] =
-  document.querySelectorAll(".feedback");
+  document.querySelectorAll('.feedback');
 
 const isEmailValid = (email) => {
   return /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g.test(
@@ -22,9 +19,9 @@ const validation = (email, password) => {
 };
 
 const toggleShowPassword = (toggler, elements) => {
-  toggler.addEventListener("change", (e) => {
+  toggler.addEventListener('change', (e) => {
     elements.forEach((element) => {
-      element.setAttribute("type", e.target.checked ? "text" : "password");
+      element.setAttribute('type', e.target.checked ? 'text' : 'password');
     });
   });
 };
@@ -32,19 +29,19 @@ const toggleShowPassword = (toggler, elements) => {
 const getElement = (name, e) => {
   return {
     email(e) {
-      e.target.classList.toggle("border-danger", !isEmailValid(e.target.value));
+      e.target.classList.toggle('border-danger', !isEmailValid(e.target.value));
       emailFeedback.textContent = isEmailValid(e.target.value)
         ? null
-        : "Provide a valid email address";
+        : 'Provide a valid email address';
     },
     password(e) {
       e.target.classList.toggle(
-        "border-danger",
+        'border-danger',
         !isPasswordValid(e.target.value)
       );
       passwordFeedback.textContent = isPasswordValid(e.target.value)
         ? null
-        : "Password must be at least 7 characters long and contain 1 capital letter and 1 symbol or number";
+        : 'Password must be at least 7 characters long and contain 1 capital letter and 1 symbol or number';
     },
   }[name](e);
 };
@@ -58,29 +55,31 @@ const handleInput = (e) => {
   btn.disabled = !validation(email.value, password.value);
 };
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   toggleShowPassword(form.showPassword, [form.password]);
 
-  form.email.addEventListener("input", handleInput);
+  form.email.addEventListener('input', handleInput);
 
-  form.password.addEventListener("input", handleInput);
+  form.password.addEventListener('input', handleInput);
 
-  form.addEventListener ("submit", async (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const { email, password } = e.target;
     const submittedValue = {
       email: email.value,
       password: password.value,
     };
-    const response = await fetch("/api/login", {
-      method: "POST",
+    const postLogin = await fetch('/api/login', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(submittedValue),
     });
 
-    console.log(submittedValue, JSON.s);
+    // Check console to see the result
+    console.log(submittedValue);
   });
 });
+
 
