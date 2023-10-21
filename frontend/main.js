@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (postLogin.status === 200) {
       window.location.href = '/dashboard';
     } else {
-      alert('Something went wrong');
+      alert('Wrong email or password');
     }
 
     // Check console to see the result
@@ -100,10 +100,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (postLogout.status === 200) {
       window.location.href = '/';
     } else {
-      alert('Something went wrong');
+      alert('You are not logged in yet');
+      console.log("You got this response code from the server: " + postLogout.status);
     }
   });
-  
+  // add/move logout button to dashboard page
   // add to dashboard page - list of users projects
   // add register form
   // add register button
