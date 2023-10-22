@@ -41,7 +41,7 @@ const getElement = (name, e) => {
       );
       passwordFeedback.textContent = isPasswordValid(e.target.value)
         ? null
-        : 'Password must be at least 7 characters long and contain 1 capital letter and 1 symbol or number';
+        : 'Password must be at least 7 characters long';
     },
   }[name](e);
 };
