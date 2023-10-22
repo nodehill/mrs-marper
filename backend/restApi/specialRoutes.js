@@ -1,4 +1,4 @@
-import { loginCtrls, aclMiddleware, compileProject }
+import { loginCtrls, aclMiddleware, compileProject, showMyProjects }
   from "./controllers/_.js";
 
 // special routes for the rest router
@@ -14,6 +14,9 @@ export default (restRouter, inject) => {
 
   // compile project route
   compileProject(inject);
+
+  // route to show list projects
+  showMyProjects(inject);
 
   // catch all route if nothing else matches 
   setImmediate(() => restRouter.all('*', (_, res) =>
