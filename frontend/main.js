@@ -38,7 +38,7 @@ window.login = () => {
           !isEmailValid(e.target.value)
         );
         emailFeedback.textContent = isEmailValid(e.target.value)
-          ? "Correct input"
+          ? null
           : 'Provide a valid email address';
       },
       password(e) {
@@ -47,7 +47,7 @@ window.login = () => {
           !isPasswordValid(e.target.value)
         );
         passwordFeedback.textContent = isPasswordValid(e.target.value)
-          ? "Correct input"
+          ? null
           : 'Password must be at least 7 characters long';
       },
     }[name](e);
@@ -115,9 +115,9 @@ window.login = () => {
     });
     // add/move logout button to start page
     // add to start page - list of users projects
+    
   };
-
-// Navigering
+// navigering
 
 document.body.addEventListener('click', (e) => {
   let a = e.target.closest('a');
