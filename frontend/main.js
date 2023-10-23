@@ -38,7 +38,7 @@ window.login = () => {
           !isEmailValid(e.target.value)
         );
         emailFeedback.textContent = isEmailValid(e.target.value)
-          ? "Corrent input"
+          ? "Correct input"
           : 'Provide a valid email address';
       },
       password(e) {
@@ -47,7 +47,7 @@ window.login = () => {
           !isPasswordValid(e.target.value)
         );
         passwordFeedback.textContent = isPasswordValid(e.target.value)
-          ? "Corrent input"
+          ? "Correct input"
           : 'Password must be at least 7 characters long';
       },
     }[name](e);
