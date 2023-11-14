@@ -1,10 +1,26 @@
+window.start = async () => {
+  const response = await fetch("/api/my-projects");
+  const { projects } = await response.json();
+  const list = projects.map((project) => `<li>${project}</li>`).join("");
+  console.log(list);
+  document.querySelector("#project-list").innerHTML = list;
+  const loggedInRes = await fetch("/api/login");
+  const loggedInUser = await loggedInRes.json();
+  const userFirstName = loggedInUser.firstName;
+  const userLastName = loggedInUser.lastName;
+  document.querySelector(
+    "#currentUser"
+  ).innerHTML = `<p>Logged in as: ${userFirstName} ${userLastName}</p>`;
+  console.log(loggedInUser);
+};
 
+//////////////////////////////////////////////
 
 window.login = () => {
   const [form] = document.forms;
   console.log("hej");
   const [emailFeedback, passwordFeedback] =
-    document.querySelectorAll('.feedback');
+    document.querySelectorAll(".feedback");
 
   const isEmailValid = (email) => {
     return /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g.test(
@@ -23,9 +39,9 @@ window.login = () => {
   };
 
   const toggleShowPassword = (toggler, elements) => {
-    toggler.addEventListener('change', (e) => {
+    toggler.addEventListener("change", (e) => {
       elements.forEach((element) => {
-        element.setAttribute('type', e.target.checked ? 'text' : 'password');
+        element.setAttribute("type", e.target.checked ? "text" : "password");
       });
     });
   };
@@ -34,21 +50,21 @@ window.login = () => {
     return {
       email(e) {
         e.target.classList.toggle(
-          'border-danger',
+          "border-danger",
           !isEmailValid(e.target.value)
         );
         emailFeedback.textContent = isEmailValid(e.target.value)
           ? null
-          : 'Provide a valid email address';
+          : "Provide a valid email address";
       },
       password(e) {
         e.target.classList.toggle(
-          'border-danger',
+          "border-danger",
           !isPasswordValid(e.target.value)
         );
         passwordFeedback.textContent = isPasswordValid(e.target.value)
           ? null
-          : 'Password must be at least 7 characters long';
+          : "Password must be at least 7 characters long";
       },
     }[name](e);
   };
@@ -62,70 +78,68 @@ window.login = () => {
     btn.disabled = !validation(email.value, password.value);
   };
 
-  
-    toggleShowPassword(form.showPassword, [form.password]);
+  toggleShowPassword(form.showPassword, [form.password]);
 
-    form.email.addEventListener('input', handleInput);
+  form.email.addEventListener("input", handleInput);
 
-    form.password.addEventListener('input', handleInput);
+  form.password.addEventListener("input", handleInput);
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const { email, password } = e.target;
-      const submittedValue = {
-        email: email.value,
-        password: password.value,
-      };
-      const postLogin = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(submittedValue),
-      });
-
-      if (postLogin.status === 200) {
-        window.location.href = '/dashboard';
-      } else {
-        alert('Wrong email or password');
-      }
-
-      // Check console to see the result
-      console.log(submittedValue);
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const { email, password } = e.target;
+    const submittedValue = {
+      email: email.value,
+      password: password.value,
+    };
+    const postLogin = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(submittedValue),
     });
 
-    const logout = document.querySelector('#logout');
-    logout.addEventListener('click', async (e) => {
-      e.preventDefault();
-      const postLogout = await fetch('/api/login', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+    if (postLogin.status === 200) {
+      window.location.href = "/";
+    } else {
+      alert("Wrong email or password");
+    }
 
-      if (postLogout.status === 200) {
-        window.location.href = '/';
-      } else {
-        alert('You are not logged in yet');
-        console.log(
-          'You got this response code from the server: ' + postLogout.status
-        );
-      }
+    // Check console to see the result
+    console.log(submittedValue);
+  });
+
+  const logout = document.querySelector("#logout");
+  logout.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const postLogout = await fetch("/api/login", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
-    // add/move logout button to start page
-    // add to start page - list of users projects
-    
-  };
+
+    if (postLogout.status === 200) {
+      window.location.href = "/";
+    } else {
+      alert("You are not logged in yet");
+      console.log(
+        "You got this response code from the server: " + postLogout.status
+      );
+    }
+  });
+  // add/move logout button to start page
+  // add to start page - list of users projects
+};
 // navigering
 
-document.body.addEventListener('click', (e) => {
-  let a = e.target.closest('a');
+document.body.addEventListener("click", (e) => {
+  let a = e.target.closest("a");
   if (!a) {
     return;
   }
-  let href = a.getAttribute('href');
-  if (href[0] !== '/') {
+  let href = a.getAttribute("href");
+  if (href[0] !== "/") {
     return;
   }
   e.preventDefault();
@@ -141,6 +155,5 @@ async function navigate() {
   let func = window[l];
   console.log(func);
   func && func();
-
 }
 window.onpopstate = navigate;
