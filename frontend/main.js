@@ -12,6 +12,7 @@ window.start = async () => {
     "#currentUser"
   ).innerHTML = `<p>Logged in as: ${userFirstName} ${userLastName}</p>`;
   console.log(loggedInUser);
+  var simplemde = new SimpleMDE({ element: document.getElementById("file-input") });
 };
 
 //////////////////////////////////////////////
