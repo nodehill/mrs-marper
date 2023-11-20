@@ -12,7 +12,7 @@ window.start = async () => {
     "#currentUser"
   ).innerHTML = `<p>Logged in as: ${userFirstName} ${userLastName}</p>`;
   console.log(loggedInUser);
-  var simplemde = new SimpleMDE({ renderingConfig: { codeSyntaxHighlighting: true }, element: document.getElementById("file-input") });
+  var simplemde = new SimpleMDE({ placeholder: "Start making your own markdown presentation...", renderingConfig: { codeSyntaxHighlighting: true }, element: document.getElementById("file-input") });
 };
 
 //////////////////////////////////////////////
