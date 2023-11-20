@@ -1,5 +1,6 @@
 window.start = async () => {
   const response = await fetch("/api/my-projects");
+  console.log(response);
   const { projects } = await response.json();
   const list = projects.map((project) => `<li>${project}</li>`).join("");
   console.log(list);
@@ -13,7 +14,10 @@ window.start = async () => {
   ).innerHTML = `<p>Logged in as: ${userFirstName} ${userLastName}</p>`;
   console.log(loggedInUser);
   var simplemde = new SimpleMDE({ placeholder: "Start making your own markdown presentation...", renderingConfig: { codeSyntaxHighlighting: true }, element: document.getElementById("file-input") });
+  simplemde.value("## Hello World!");
 };
+
+
 
 //////////////////////////////////////////////
 
