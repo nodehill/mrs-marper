@@ -27,7 +27,11 @@ export default ({ restRouter }) => {
 
     let filename = pathJoin(myProjectFolder, projects[0], "index.md")
     let markdownContent = readFileSync(filename, "utf-8");
+    let filename2 = pathJoin(myProjectFolder, projects[1], "index.md")
+    let markdownContent2 = readFileSync(filename2, "utf-8");
+    let filename3 = pathJoin(myProjectFolder, projects[2], "index.md")
+    let markdownContent3 = readFileSync(filename2, "utf-8");
 
-    res.json({ innerFiles, projects, markdownContent });
+    res.json({ innerFiles, projects, markdownContent, markdownContent2, markdownContent3 });
   });
 };

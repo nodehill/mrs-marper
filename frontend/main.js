@@ -5,13 +5,15 @@
 window.start = async () => {
   const response = await fetch("/api/my-projects");
   console.log(response);
-  const { projects, innerFiles, markdownContent } = await response.json();
+  const { projects, innerFiles, markdownContent, markdownContent2, markdownContent3 } = await response.json();
   console.log(innerFiles);
-  const list = projects.map((project) => `<li>${project}</li>`).join("");
+  //console.log(projects);
+  const list = projects.map((project) => `<button id="${project}" class="dropdown-item">${project}</button>`).join("");
   console.log(list);
-  const listFiles = innerFiles.map((innerFile) => `<li>${innerFile}</li>`).join("");
-  console.log(listFiles);
-  document.querySelector("#project-list").innerHTML = list + listFiles;
+  //const listFiles = innerFiles.map((innerFile) => `<p class="dropdown-item">${innerFile}</p>`).join("");
+  //console.log(listFiles);
+  document.querySelector("#project-list").innerHTML = list;
+  //document.querySelector("#projectDir").innerHTML = listFiles;
   const loggedInRes = await fetch("/api/login");
   const loggedInUser = await loggedInRes.json();
   const userFirstName = loggedInUser.firstName;
@@ -20,11 +22,11 @@ window.start = async () => {
     "#currentUser"
   ).innerHTML = `<p>Logged in as: ${userFirstName} ${userLastName}</p>`;
   console.log(loggedInUser);
-  console.log(markdownContent);
+  //console.log(markdownContent);
 
   if (loggedInUser) {
     document.getElementById('logout')
-      .className = "visible float-right";
+      .className = "visible float-right mr-2";
     document.getElementById('login')
       .className = "invisible";
   } else {
@@ -34,11 +36,37 @@ window.start = async () => {
       .className = "visible";
   }
 
+  // Fix so that the eventlistener can listen to all the different projects // not DONE
+
+  let content = document.getElementById(projects[0]);
+  content.addEventListener("click", myFunc);
+
+
+  // TODO : Fix the path for images in the markdown file // not DONE
+
+  // Fix on click event for the dropdown menu // not Done
+
+  function myFunc() {
+    if (content.innerHTML === projects[0]) {
+      var simplemde = new SimpleMDE({ placeholder: "Start making your own markdown presentation...", renderingConfig: { codeSyntaxHighlighting: true }, element: document.getElementById("file-input") });
+      simplemde.value(markdownContent);
+    } else if (content.innerHTML === projects[1]) {
+      var simplemde = new SimpleMDE({ placeholder: "Start making your own markdown presentation...", renderingConfig: { codeSyntaxHighlighting: true }, element: document.getElementById("file-input") });
+      simplemde.value(markdownContent2);
+    } else if (content.innerHTML === projects[2]) {
+      var simplemde = new SimpleMDE({ placeholder: "Start making your own markdown presentation...", renderingConfig: { codeSyntaxHighlighting: true }, element: document.getElementById("file-input") });
+      simplemde.value(markdownContent3);
+    } else {
+      console.log("No project selected")
+    }
+  }
+
+
   // TODO : Fix the path for images in the markdown file // not DONE
 
 
-  var simplemde = new SimpleMDE({ placeholder: "Start making your own markdown presentation...", renderingConfig: { codeSyntaxHighlighting: true }, element: document.getElementById("file-input") });
-  simplemde.value(markdownContent);
+  /* var simplemde = new SimpleMDE({ placeholder: "Start making your own markdown presentation...", renderingConfig: { codeSyntaxHighlighting: true }, element: document.getElementById("file-input") });
+  simplemde.value(markdownContent); */
 
   const logout = document.querySelector("#logout");
   logout.addEventListener("click", async (e) => {
