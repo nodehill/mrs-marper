@@ -1,10 +1,17 @@
+
+
+
+
 window.start = async () => {
   const response = await fetch("/api/my-projects");
   console.log(response);
-  const { projects } = await response.json();
+  const { projects, innerFiles, markdownContent } = await response.json();
+  console.log(innerFiles);
   const list = projects.map((project) => `<li>${project}</li>`).join("");
   console.log(list);
-  document.querySelector("#project-list").innerHTML = list;
+  const listFiles = innerFiles.map((innerFile) => `<li>${innerFile}</li>`).join("");
+  console.log(listFiles);
+  document.querySelector("#project-list").innerHTML = list + listFiles;
   const loggedInRes = await fetch("/api/login");
   const loggedInUser = await loggedInRes.json();
   const userFirstName = loggedInUser.firstName;
@@ -13,8 +20,46 @@ window.start = async () => {
     "#currentUser"
   ).innerHTML = `<p>Logged in as: ${userFirstName} ${userLastName}</p>`;
   console.log(loggedInUser);
+  console.log(markdownContent);
+
+  if (loggedInUser) {
+    document.getElementById('logout')
+      .className = "visible float-right";
+    document.getElementById('login')
+      .className = "invisible";
+  } else {
+    document.getElementById('logout')
+      .className = "invisible";
+    document.getElementById('login')
+      .className = "visible";
+  }
+
+  // TODO : Fix the path for images in the markdown file // not DONE
+
+
   var simplemde = new SimpleMDE({ placeholder: "Start making your own markdown presentation...", renderingConfig: { codeSyntaxHighlighting: true }, element: document.getElementById("file-input") });
-  simplemde.value("## Hello World!");
+  simplemde.value(markdownContent);
+
+  const logout = document.querySelector("#logout");
+  logout.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const postLogout = await fetch("/api/login", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (postLogout.status === 200) {
+      window.location.href = "/";
+      alert("You are now logged out");
+    } else {
+      alert("You are not logged in yet");
+      console.log(
+        "You got this response code from the server: " + postLogout.status
+      );
+    }
+  });
 };
 
 

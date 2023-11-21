@@ -1,4 +1,4 @@
-import { readdirSync, existsSync } from "fs";
+import { readdirSync, existsSync, readFileSync } from "fs";
 import { dirname, join as pathJoin } from 'path';
 import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -19,6 +19,15 @@ export default ({ restRouter }) => {
       return;
     }
     let projects = readdirSync(myProjectFolder);
-    res.json({ projects });
+    let innerFiles = projects.map((project) => {
+      let projectFolder = pathJoin(myProjectFolder, project);
+      let files = readdirSync(projectFolder);
+      return files;
+    });
+
+    let filename = pathJoin(myProjectFolder, projects[0], "index.md")
+    let markdownContent = readFileSync(filename, "utf-8");
+
+    res.json({ innerFiles, projects, markdownContent });
   });
- };
+};
