@@ -3,3 +3,12 @@
 form label {
   cursor: pointer;
 }
+/* Highlight.js theme */
+
+.hljs-string,
+.hljs-section,
+.hljs-selector-class,
+.hljs-template-variable,
+.hljs-deletion {
+  color: #800;
+}
