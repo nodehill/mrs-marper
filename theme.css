@@ -119,6 +119,8 @@ section.first-page h2 {
   font-size: 30px;
   text-align: center;
   font-weight: normal;
+  line-height: 100%;
+  margin-top: 12px;
 }
 
 section.fit-whole-image {
@@ -137,6 +139,10 @@ section.fit-whole-image li {
 
 section.tight-list li {
   margin: 10px;
+}
+
+section.super-tight-list li {
+  margin: 5px;
 }
 
 table {
@@ -213,4 +219,10 @@ section.first-page figure {
 
 section.info-the-blog figure {
   border-left: 1px solid #999 !important;
+}
+
+hr {
+  border: 0;
+  border-top: 2px solid #899b49;
+  background-color: inherit;
 }
