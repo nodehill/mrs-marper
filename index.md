@@ -96,7 +96,7 @@ Utöver detta kommer vi att använda oss av olika kodbaser/kodexempel, och då i
 # Om testning
 ## Länkar till artiklar på vår blogg
 - [Olika typer av testning](https://sys23m-jensen.lms.nodehill.se/article/olika-typer-av-test) - beskrivning av några vanliga typer av test.
-- [Vanliga typer av automiserad testning](https://sys23m-jensen.lms.nodehill.se/article/vanliga-typer-av-automatiserad-skriptad-testning), samt kort förklaring av vad TDD (Test Driven Development) och BDD (Behavior Driven Development) är.
+- [Vanliga typer av automatiserad testning](https://sys23m-jensen.lms.nodehill.se/article/vanliga-typer-av-automatiserad-skriptad-testning), samt kort förklaring av vad TDD (Test Driven Development) och BDD (Behavior Driven Development) är.
 - [TDD som arbetsmetod](https://sys23m-jensen.lms.nodehill.se/article/test-driven-development-tdd-intro) - historik, arbetsflöde, för- och nackdelar.
 - [BDD som arbetsmetod](https://sys23m-jensen.lms.nodehill.se/article/bdd-och-gherkin-cucumber-intro) - samt en introduktion till scenariebeskrivningar med Gherkin och vad Cucumber är.
 ## Hur kommer vi att använda arbetsmetoderna?
@@ -113,7 +113,7 @@ Utöver detta kommer vi att använda oss av olika kodbaser/kodexempel, och då i
 - Till **CI** räknas även att få automatiserade tester (som enhetstester, endpointtester och gränssnittstester) att köra varje gång *pull requests* sker till vissa brancher (t.ex. huvudbranchen för utveckling, ofta kallad *dev*).
 - Innan testerna kan köras måste även koden kompileras/"byggas". Så även detta led behöver vara automatiserat.
 - Genom att köra automatiserade tester vid varje *pull request* går det snabbt att se att koden inte försämrats och buggar uppstått under utvecklingen. Detta är alltså en typ av *regressionstestning*.
-- Det finns olika verktyg för att sätta **CI**-flöden/"pipelines". Allt populärare blir att de är inbyggda i den molntjänst man väljer för git, t.ex. har GitHub et system som kallas **GitHub Actions**, som vi ska använda oss av under kursen.
+- Det finns olika verktyg för att sätta **CI**-flöden/"pipelines". Allt populärare blir att de är inbyggda i den molntjänst man väljer för git, t.ex. har GitHub ett system som kallas **GitHub Actions**, som vi ska använda oss av under kursen.
 - Det går även att bygga flöden för att automatiskt publicera ett projekt på en (webb)server efter att testerna har körts i en viss branch, vanligen projektets main/live-branch. Detta kallas *Continuous Deployment* - **CD**.
 ---
 <!-- paginate: true -->
@@ -151,10 +151,10 @@ Vi ska göra en övning där vi utför utforskande testning av två olika tågbo
 <!-- _class: tight-list big-margins whats_next-->
 
 
-### Inför torsdag 2 maj 2024
+# Inför torsdag 2 maj 2024
 - Vi kommer att arbeta med att skriva enhetstester enligt TDD (dvs. koden för testerna skrivs före programkoden).
 - Node Hills praktikant, Max, har satt ihop en trevlig README-fil och ett exempelrepo kring hur man kommer igång med unit testing med C#, [som du hittar här](https://github.com/Svenpaj/simple-setup-unitTestCsharp).
-- Thomas har tagit fram en kodbas med databas, backend (baserat på [Microsoft Minimal APIs](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/overview?view=aspnetcore-8.0)) och frontend, som vi kommer att arbeta med löpande under kursen. [Den hittar du här](https://github.com/ironboy/TestCSharpApi) och det är bra om *du kopierar (eller forkar) den till ett eget repo inför torsagen*. Det finns en README-fil som främst förklarar hur REST-api:t fungerar. (Notera dock att frontend inte använder REST-api:t än.)
+- Thomas har tagit fram en kodbas med databas, backend (baserat på [Microsoft Minimal APIs](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/overview?view=aspnetcore-8.0)) och frontend, som vi kommer att arbeta med löpande under kursen. [Den hittar du här](https://github.com/ironboy/TestCSharpApi) och det är bra om *du kopierar (eller forkar) den till ett eget repo inför torsdagen*. Det finns en README-fil som främst förklarar hur REST-api:t fungerar. (Notera dock att frontend inte använder REST-api:t än.)
 
 ![bg vertical](images/white_1px.jpg)
 ![bg vertical](images/white_1px.jpg)
