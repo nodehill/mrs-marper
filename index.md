@@ -2,159 +2,126 @@
 marp: true
 theme: nodehill
 author: Thomas Frank, Node Hill AB
-title: Systemutvecklare inriktning säkerhet - Testning
-description: Introduktion
+title: Enhetstester
+description: Att skriva enhetstester
 language: sv-SE
 ---
 
 <!-- _class: first-page -->
-<!-- header: '<p>Testning &ndash; introduktion, 2024-04-30</p>' -->
+<!-- header: '<p>Testning &ndash; Enhetstester, 2024-05-02</p>' -->
 
 ![bg vertical](images/white_1px.jpg)
-![bg](images/LIA-blogg-ver2.jpg)
+![bg](images/lego.jpg)
 
-# &nbsp;Introduktion till kursen Testning
-## Kursplanering, olika typer av tester,<br>testprocessen, arbetsmetoder & roller
+# &nbsp;Testning
+## Att skriva enhetstester med TDD som arbetsmetod,<br>samt Continuous Integration med Github Actions
 
 ---
-
 <!-- paginate: true -->
-<!-- _class: tight-list -->
-![bg right:35%](images/thompa.jpg)
+<!-- _class: tight-list big-margins -->
 
-# Din lärare: Thomas Frank
-Thomas Frank har arbetat med IT- och webbutveckling i över 25 år – webb, e-böcker och digitala läromedel – bl.a. som **Digital Development Manager** på Studentlitteratur och som konsult på Axis Communications, i en rådgivande roll kring övergripande webbsystemarkitektur.
-
-### Några snabba fakta
-- Examen inom Informatik (IT) och medie- och kommunikationsvetenskap från Lunds Universitet. 
-- Har undervisat på YH-nivå sedan 2013, ca 15 000 lektionstimmar, bl.a. på många systemutvecklar- och testutbildningar.
-- CEO för Node Hill, ett företag som uteslutande arbetar med IT-utbildning på yrkeshögskole- och högskolenivå.
-- Pappa till tre barn, varav två är vuxna och utflugna.
-- Sambo med Wanja och husse till katten Moshi.
-- Fritidsintressen: Att programmera. 😉 Samt även att spela gitarr, sjunga och skriva låtar. 
-
----
-
-<!-- _class: big-margins tight-list nodehill-faces -->
-
-# Vem är Node Hill?
-Node Hill sysslar med IT-utbildningar. Vi arbetar som leveran­törer till olika yrkes­hög­skolor och högskolor/universitet. Saker vi brinner för och tycker är viktiga:
-
-- hänsyn till varje studerandes unika förutsättningar
-- problembaserat lärande i agila team 
-- verklighetsnära problemlösning.
-
-[Läs mer på Node Hills webbplats](https://www.nodehill.com)
+# Övergripande mål för dagen
+- Utgå från [följande kodbas]((https://github.com/ironboy/TestCSharpApi)) som du bör ha kopierat till ett eget repo!
+- Du ska lägga till ny funktionalitet, i form av ett antal olika metoder i backend.
+- De nya metoderna ska vara enhetstestade!
+- Enhetstesterna ska köras automatiskt vid ändringar i kodbasen.
 
 ![bg vertical](images/white_1px.jpg)
-![bg](images/the-gang.jpg)
-
----
-
-<!-- paginate: true -->
-<!-- _class: tight-list -->
-![bg right:35%](images/testing-pyramid.jpg)
-
-# Kursen Testning
-Kursen Testning är en fyraveckors kurs (20 yhp) som ska ge en introduktion till testning. Thomas kommer att lägga fokus på att lära ut vanligen använda automatiserade testmetoder:
-- *Enhetstester* (även kallade *unit tester*) 
-- *API/endpoint-tester* av REST-api:er
-- *UI/gränssnittstestning* - automatiserad testning av gränssnitt
-- *Continuous Integration* (CI) - att automatiskt köra automatiserade tester varje gång kodbasen förändras.
-
-Utöver detta tittar vi bl.a. på olika begrepp, arbetsmetoder och roller kring testning, samt manuell utforskande testning.
-
-Jensen har bestämt sig för att examination ska ske via en tenta, men vi kommer att genomföra praktiska övningar i form av läxor som man sedan länkar till när man gör denna tenta, eftersom praktiska färdigheter inte går att mäta med teorifrågor.
-
-*Detaljerad info och schema* finns i [kursplaneringen som du hittar här.](https://sys23m-jensen.lms.nodehill.se/article/kursplanering-testning-jensen-sys23)
-
----
-
-<!-- paginate: true -->
-<!-- _class: tight-list -->
-![bg left:30%](images/code.jpg)
-
-# Program vi kommer att behöva
-- En kodeditor. Thomas rekommenderar starkt att du använder editorn [Visual Studio Code](https://code.visualstudio.com). Den har fördelen att vi kan arbeta med såväl C#-kod som JavaScript-kod på ett smidigt sätt.
-- [C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit) för Visual Studio Code.
-- [Node.js](https://nodejs.org/en) som vi använder tillsammans med olika moduler/paket för gränssnittstestning. (Ladda hem senaste LTS-versionen.)
-- [PostMan](https://www.postman.com/downloads) för API/endpointtestning. (Installera på datorn, kör *inte* webbversionen.)
-- [SQLiteStudio](https://sqlitestudio.pl/) - en grafisk editor för SQLite-databaser.
-- [Git](https://git-scm.com), ett [GitHub](https://github.com)-konto och, om du vill, ett grafisk gränssnitt för Git (som t.ex. [GitHub Desktop](https://desktop.github.com)).
-
-*Installera dessa program så snart som möjligt, under egentid, så slipper du sitta och krångla med det under lektionerna.* Men fråga gärna Thomas om du får problem med någon installation!
-
-Utöver detta kommer vi att använda oss av olika kodbaser/kodexempel, och då installera olika NuGet-paket för C# och npm-paket för Node.js.
-
----
-
-<!-- paginate: true -->
-<!-- _class: tight-list -->
-![bg right:30%](images/agile.jpg)
-
-
-# Om testning
-## Länkar till artiklar på vår blogg
-- [Olika typer av testning](https://sys23m-jensen.lms.nodehill.se/article/olika-typer-av-test) - beskrivning av några vanliga typer av test.
-- [Vanliga typer av automatiserad testning](https://sys23m-jensen.lms.nodehill.se/article/vanliga-typer-av-automatiserad-skriptad-testning), samt kort förklaring av vad TDD (Test Driven Development) och BDD (Behavior Driven Development) är.
-- [TDD som arbetsmetod](https://sys23m-jensen.lms.nodehill.se/article/test-driven-development-tdd-intro) - historik, arbetsflöde, för- och nackdelar.
-- [BDD som arbetsmetod](https://sys23m-jensen.lms.nodehill.se/article/bdd-och-gherkin-cucumber-intro) - samt en introduktion till scenariebeskrivningar med Gherkin och vad Cucumber är.
-## Hur kommer vi att använda arbetsmetoderna?
-- Vi kommer att prova på utforskande testning (*exploratory testing*) redan första dagen! Detta är en manuell testform, som dock ofta även är nödvändig innan man kan gå vidare och skriva automatiserade testter.
-- Vi kommer att arbeta enligt TDD när vi skriver unit tester och enligt BDD när vi, så småningom, skriver gränssnittstester.
-
----
-<!-- paginate: true -->
-<!-- _class: super-tight-list -->
-![bg right:28%](images/devops.jpg)
-# Vad är Continuous Integration?
-- I dag versionshanteras en merpart av all utvecklad kod, oftast med git. Oftast sätter man även upp regler för att kod måste granskas innan den kan läggas till i vissa git-brancher, via s.k. *pull requests*.
-- Versionshanteringen i sig, och att den ska vara löpande (dvs. commits sker dagligen), är en del av det vi kallar *Continuous Integration* - **CI**.
-- Till **CI** räknas även att få automatiserade tester (som enhetstester, endpointtester och gränssnittstester) att köra varje gång *pull requests* sker till vissa brancher (t.ex. huvudbranchen för utveckling, ofta kallad *dev*).
-- Innan testerna kan köras måste även koden kompileras/"byggas". Så även detta led behöver vara automatiserat.
-- Genom att köra automatiserade tester vid varje *pull request* går det snabbt att se att koden inte försämrats och buggar uppstått under utvecklingen. Detta är alltså en typ av *regressionstestning*.
-- Det finns olika verktyg för att sätta **CI**-flöden/"pipelines". Allt populärare blir att de är inbyggda i den molntjänst man väljer för git, t.ex. har GitHub ett system som kallas **GitHub Actions**, som vi ska använda oss av under kursen.
-- Det går även att bygga flöden för att automatiskt publicera ett projekt på en (webb)server efter att testerna har körts i en viss branch, vanligen projektets main/live-branch. Detta kallas *Continuous Deployment* - **CD**.
----
-<!-- paginate: true -->
-<!-- _class: tight-list -->
-![bg left:25%](images/another-team.jpg)
-
-# Roller inom testning
-Det finns i olika yrkesroller i vilka testning ingår:
-- *Utvecklare* skriver ofta enhetstester. På arbetsplatser där det inte finns anställa mjukvarutestare (eller där dessa saknar teknisk kompetens) skriver de även endpointtester och gränssnittstester, samt *CI*-flöden.
-- *Mjukvarutestare* är ett yrke i förändring. Från att för 10-20 år sedan främst sysslat med manuella tester, både utforskande och utifrån olika protokoll och scenarier, är det nu allt fler mjukvarutestare som kan programmera och skriva automatiserade tester. Ibland kallas de som har sådana kunskaper *tekniska testare*.
-- *Testledare* kallas den person som har huvudansvaret för testning i ett mjukvaruprojekt. Hen leder ofta ett team av testare och tar ansvar för att utforma regler, rutiner och flöden kring hur testningen bör genomföras.
-- *DevOps Engineers* har ofta djup kunskap om *CI*- och *CD*-flöden och hjälper utvecklare och testare att sätta upp sådana flöden.
-- *Andra*, t.ex. chefer och projektledare, kan också vara involverade i krav- och testprocessen. T.ex. genom att man är med och tar fram scenarier enligt BDD.
-
+![bg](images/goal-dart.jpg)
 
 ---
 <!-- paginate: true -->
 <!-- _class: tight-list -->
-![bg right:42%](images/rail-track.jpg)
+![bg right:35%](images/tdd.jpg)
 
-# Övning:<br>Utforskande testning
-Från [Wikipedia: Utforskande testning](https://sv.wikipedia.org/wiki/Utforskande_testning):
+# Vi ska arbeta enligt TDD och<br>lära oss använda GitHub Actions
 
->"*Utforskande testning handlar om att se hur produkten fungerar, och utifrån det ställa frågor om hur den hanterar svåra och enkla fall. Denna testning är i hög grad beroende av testarens skicklighet i att hitta på tester och upptäcka felaktigheter. Ju mer testaren vet om produkten och olika testmetoder, desto mer effektiv blir testningen.*" 
+När vi skriver de nya metoderna ska vi följa arbetsmetoden **TDD** ([Test Driven Development](https://marsner.com/blog/why-test-driven-development-tdd/)), dvs:
+  1. Först skapar du en "tom" metod – med bara [metodsignaturen](https://www.c-sharpcorner.com/UploadFile/puranindia/method-signatures-in-C-Sharp/) och en tom kropp – sånär som på att vi behöver returnera ett fast värde av rätt typ från början (eller null).
+  2. Därefter skriver du ett (eller flera) test som anropar metoden och testar att den utför det arbete den ska – returnerar rätt output i förhållande till dess input. Detta test kommer givetvis att fallera, vilket är meningen!
+  3. Slutligen skriver du klart metoden. Under förutsättning att testet är väl utformat/skrivet är metoden klar när den passerar testet! Men testet kan förstås behöva justeras.
+  4. Du fortsätter på samma sätt med nästa metod du skriver etc.
+
+Vi ska dessutom använda Continuous Integration med våra enhetstester – få GitHub Actions att köra dem varje gång ändringar sker i git-repot.
+
+---
+<!-- paginate: true -->
+<!-- _class: tight-list -->
+![bg left:25%](images/dirty-hands.jpg)
+
+# Hur jobbar vi under dagen?
+1. Vi börjar med ett code-along exempel där Thomas löser större delen av "metod 3" (se kommande sidor med olika metoder som ska skrivas under dagen). [Resultatet av code-alongen läggs upp här](https://sys23m-jensen.lms.nodehill.se/article/kodexempel-enhetstester-i-c).
+2. Efter det arbetar alla med att skriva metoderna 1-2 och 4-5 (samt det som är kvar av metod 3). Ni får gärna hjälpa varandra, men jobba i individuella repon.
+3. Kl 14.00 återsamlas vi och Thomas utökar sitt exempel med en demonstration av hur vi får GitHub Actions för att köra våra enhetstester.
 
 <hr>
 
-Vi ska göra en övning där vi utför utforskande testning av två olika tågbolags bokningsystem på webben: **SJ** och **Snälltåget**.
+### Tänk på när du skriver metoderna:
+- Skriv alltid testet för en metod innan själva innehållet i metoden!
+- Du kan lägga alla dina metoder i samma fil och i samma *statiska klass*. Döp filen till *Utils.cs* och spara i *Backend/src*. Ge klassen signaturen *public static class Utils*. Att den är statisk  innebär att den endast kan innehålla statiska medlemmar (fält och metoder).
 
-[Instruktioner för övningen hittar du på vår blogg!](https://sys23m-jensen.lms.nodehill.se/article/ovning-utforskande-testning-tagbokning)
+---
+<!-- paginate: true -->
+<!-- _class: tight-list -->
+![bg right:30%](images/writing.jpg)
+
+# Metoder vi ska skriva,<br>metod 1 och 2
+
+1. **Tillräckligt svårt lösenord**. En metod för att kontrollera att ett lösenord är svårt nog att gissa. Det ska vara minst 8 tecken långt, innehåller både små och stora bokstäver, minst en siffra, samt minst ett annat tecken. Metodens inparameter ska vara en sträng, lösenordet, och den ska returnera en boolean – *true* om lösenord är godkänt, annars *false*. Döp metoden till *IsPasswordGoodEnough*.
+2. **Rensa bort "fula ord".** En metod som rensar bort fula ord från en text. Den ska göra detta case-insensitive. Inparametrar är två strängar – den första texten som ska rensas, den andra vad fula ord ska ersättas med. En sträng ska returneras - samma som den som originaltexten, men me de fula orden ersatta med ersättningssträngen. Döp metoden till *RemoveBadWords*. 
+
+**Notera:** För *removeBadWords* ska du [använda följande ordlista](https://github.com/rudolph2907/bad-language-filter/blob/master/badwords.json) - skapa en mapp som heter *json* inuti *Backend*-mappen, spara därefter ordlistan som *bad-words.json* i denna mapp. Läs in filen när programmet startar, deserialisera från JSON genom att anropa *JSON.Parse* och lagra den i en privat statisk fältvariabel.
+
+---
+<!-- paginate: true -->
+<!-- _class: tight-list mockaroo-page -->
+
+
+# Mockaroo
+Innan du börjar skriva metod 3: 
+1. Besök [mockaroo.com](https://mockaroo.com).
+2. Ställ in mockaroo så att den skapar fälten *firstName*, *lastName* och *email*, samt sätt **format** till *json* och antal **rows** till 1000. (Se bilden.)
+2. Generera och ladda hem json-filen genom att klicka på **Generate data**.
+3. Flytta filen till mappen **Backend/json** (som du skapade i övning 2) och döp om den till **mock-users.json**.
+
+Du kommer att använda dig av denna fil när du ska skriva metod 3.
+
+<img src="images/mockaroo.jpg">
+
+---
+<!-- paginate: true -->
+<!-- _class: tight-list -->
+![bg left:30%](images/writing.jpg)
+
+# Metoder vi ska skriva, metod 3 och 4
+
+3. **Lägg till mockanvändare i databasen.** En metod som lägger till mockanvändare i databasen. Läs in användarna från filen *mock-users.json* (se föregående sida), packa upp från JSON genom att anropa *JSON.Parse* och skapa sedan deras lösenord (vilka saknas i json-datan). För varje användare: Använd deras e-post, fast med första bokstaven omvandlad till stor bokstav, som lösenord. Anropa den första metoden du skrev, *IsPasswordGoodEnough* och kontrollera att lösenordet är ok, samt kryptera lösenordet genom att anropa *Password.Encrypt*. Metoden ska skriva användarna till databasen via anrop till metoden *SQLQuery*, men även returnera listan över skapade användare (inkl. lösenord) som en [Arr](https://dyndata.nodehill.com/#arr-smart-arrays) av [Obj](https://dyndata.nodehill.com/#obj-smart-objects):s. **Obs!** Om en användare redan finns i databasen ska den inte läggas till igen – detta går för övrigt inte då email har en *unique constraint* i databasen. Användaren ska då inte heller returneras i listan över skapade användare. Metoden har inga inparametrar och ska döpas till *CreateMockUsers*. 
+4. **Ta bort alla mockanvändare ur databasen.** En metod som tar bort alla mockanvändare som *CreateMockUsers* skapat ur databasen, men inga andra användare. Den har inga inparametrar och ska returnera en [Arr](https://dyndata.nodehill.com/#arr-smart-arrays) av [Obj](https://dyndata.nodehill.com/#obj-smart-objects):s som innehåller de mock-users som faktiskt har tagits bort ur databasen (dvs. att den kan vara 0-1000 element lång). Metoden har inga inparametrar och ska döpas till *RemoveMockUsers*. 
+
+---
+<!-- paginate: true -->
+<!-- _class: tight-list big-margins -->
+
+
+# Metoder vi ska skriva,<br>metod 5
+
+5. **Hur många användare har samma domän i sin email?** En metod som summerar hur många användare som har samma domän i sin email. Metoden ska läsa users-tabellen i databasen, via metoden *SQLQuery* - som är global i projektet). Den ska returnera ett Obj (se [Dyndatas dokumentation för Obj](https://dyndata.nodehill.com/#obj-smart-objects)). I detta objekt ska varje domän vara en nyckel/egenskap och värdet tillhörande en nyckel ska vara hur många gånger just detta domän förekommer bland användarnas email. Metoden har inga inparametrar och ska döpas till *CountDomainsFromUserEmails*. 
+
+![bg vertical](images/white_1px.jpg)
+![bg vertical](images/white_1px.jpg)
+![bg](images/writing.jpg)
 
 ---
 
 <!-- paginate: true -->
-<!-- _class: tight-list big-margins whats_next-->
+<!-- _class: tight-list big-margins -->
 
+# Inför tisdag 7 maj 2024
+- Din läxa är att gör klart de fem metoderna och deras enhetstester, om du inte hann klart det under torsdagen, samt att få dem att köras automatiskt vid git-ändringar, med hjälp av GitHub Actions. Du har fredagen och måndagen på dig att arbeta med detta.
+- Vi kommer på tisdag att tillsammans diskutera hur det har gått för er och därefter gemensamt titta på hur vi kan koppla in metoderna i kodbasen i stort.
+- Därefter byter vi spår till det som är huvudinnehållet för veckan: API/endpoint-tester av REST-api:t.
+- **Viktigt att notera:** Lektionen sker på distans via denna [Zoom-länk](https://zoom.us/j/91961963909).
 
-# Inför torsdag 2 maj 2024
-- Vi kommer att arbeta med att skriva enhetstester enligt TDD (dvs. koden för testerna skrivs före programkoden).
-- Node Hills praktikant, Max, har satt ihop en trevlig README-fil och ett exempelrepo kring hur man kommer igång med unit testing med C#, [som du hittar här](https://github.com/Svenpaj/simple-setup-unitTestCsharp).
-- Thomas har tagit fram en kodbas med databas, backend (baserat på [Microsoft Minimal APIs](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/minimal-apis/overview?view=aspnetcore-8.0)) och frontend, som vi kommer att arbeta med löpande under kursen. [Den hittar du här](https://github.com/ironboy/TestCSharpApi) och det är bra om *du kopierar (eller forkar) den till ett eget repo inför torsdagen*. Det finns en README-fil som främst förklarar hur REST-api:t fungerar. (Notera dock att frontend inte använder REST-api:t än.)
 
 ![bg vertical](images/white_1px.jpg)
 ![bg vertical](images/white_1px.jpg)
