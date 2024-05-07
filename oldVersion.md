@@ -14,7 +14,7 @@ language: sv-SE
 ![bg](images/lego.jpg)
 
 # &nbsp;Testning
-## Att skriva enhetstester med<br>TDD som arbetsmetod
+## Att skriva enhetstester med TDD som arbetsmetod,<br>samt Continuous Integration med Github Actions
 
 ---
 <!-- paginate: true -->
@@ -24,6 +24,7 @@ language: sv-SE
 - Utgå från [följande kodbas]((https://github.com/ironboy/TestCSharpApi)) som du bör ha kopierat till ett eget repo!
 - Du ska lägga till ny funktionalitet, i form av ett antal olika metoder i backend.
 - De nya metoderna ska vara enhetstestade!
+- Enhetstesterna ska köras automatiskt vid ändringar i kodbasen.
 
 ![bg vertical](images/white_1px.jpg)
 ![bg](images/goal-dart.jpg)
@@ -46,41 +47,18 @@ Vi ska dessutom använda Continuous Integration med våra enhetstester – få G
 ---
 <!-- paginate: true -->
 <!-- _class: tight-list -->
-![bg left:20%](images/dirty-hands.jpg)
+![bg left:25%](images/dirty-hands.jpg)
 
 # Hur jobbar vi under dagen?
 1. Vi börjar med ett code-along exempel där Thomas löser större delen av "metod 3" (se kommande sidor med olika metoder som ska skrivas under dagen). [Resultatet av code-alongen läggs upp här](https://sys23m-jensen.lms.nodehill.se/article/kodexempel-enhetstester-i-c).
 2. Efter det arbetar alla med att skriva metoderna 1-2 och 4-5 (samt det som är kvar av metod 3). Ni får gärna hjälpa varandra, men jobba i individuella repon.
-
-**Obs!** I en tidigare version av denna planering skulle vi även försöka hinna titta på Continuous Integration med GitHub Actions för våra enhetsteseter. Vi sparar detta till nästa vecka för att inte få *för mycket* teori på en och samma dag.
+3. Kl 14.00 återsamlas vi och Thomas utökar sitt exempel med en demonstration av hur vi får GitHub Actions för att köra våra enhetstester.
 
 <hr>
 
 ### Tänk på när du skriver metoderna:
 - Skriv alltid testet för en metod innan själva innehållet i metoden!
 - Du kan lägga alla dina metoder i samma fil och i samma *statiska klass*. Döp filen till *Utils.cs* och spara i *Backend/src*. Ge klassen signaturen *public static class Utils*. Att den är statisk  innebär att den endast kan innehålla statiska medlemmar (fält och metoder).
-
----
-
-<!-- paginate: true -->
-<!-- _class: tight-list -->
-![bg right:20%](images/dirty-hands.jpg)
-
-# Förbered projektet för att kunna köra enhetstester
-Följ instruktionerna [du hittar här](https://github.com/Svenpaj/simple-setup-unitTestCsharp) för att lägga till rätt NuGet-paket som behövs för att få vårt testsystem, baserat på **xUnit**, att fungera!
-
-När allt är tillagt korrekt och du har skapt en testklass, som du förslagsvis kan lägga i *Backend/unit-tests/UtilTests.cs* kan du köra testerna genom att skriva **dotnet test** i terminalen!
-
-## Hur får jag Console.WriteLine att fungera inne i testerna?
-På Windows är det problem att få **Console.WriteLine** att fungera i testkoden när man kör **dotnet test**. En del i klassen fick rätt på detta genom att i en separat *Bash*-terminal navigera till Backend-mappen och köra *dotnet test* i Bash-terminalen i stället. Andra inte.
-
-En sätt som fungerar för alla är att under utveckling tillfälligt köra en testmetod som om den vore del av huvudprogrammet. Ändra tillfälligt i *Backend/src/App.cs* till:
-
-```cs
-// Server.Start();
-new UtilsTest().TestCreateMockUsers(); // Anropa testmetoden
-```
-
 
 ---
 <!-- paginate: true -->
@@ -139,8 +117,8 @@ Du kommer att använda dig av denna fil när du ska skriva metod 3.
 <!-- _class: tight-list big-margins -->
 
 # Inför tisdag 7 maj 2024
-- Din läxa är att gör klart de fem metoderna och deras enhetstester, om du inte hann klart det under torsdagen. Du har fredag och måndag på dig till detta!
-- Vi kommer på tisdag att tillsammans diskutera hur det har gått för er och därefter gemensamt titta på hur vi kan köra metoderna automatiskt via GitHub Actions (CI), samt även koppla ihop de nya metoderna med övrig funktionalitet i kodbasen.
+- Din läxa är att gör klart de fem metoderna och deras enhetstester, om du inte hann klart det under torsdagen, samt att få dem att köras automatiskt vid git-ändringar, med hjälp av GitHub Actions. Du har fredagen och måndagen på dig att arbeta med detta.
+- Vi kommer på tisdag att tillsammans diskutera hur det har gått för er och därefter gemensamt titta på hur vi kan koppla in metoderna i kodbasen i stort.
 - Därefter byter vi spår till det som är huvudinnehållet för veckan: API/endpoint-tester av REST-api:t.
 - **Viktigt att notera:** Lektionen sker på distans via denna [Zoom-länk](https://zoom.us/j/91961963909).
 
